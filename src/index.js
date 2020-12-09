@@ -3,10 +3,43 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore} from 'redux'
+import { connect,Provider } from 'react-redux'
+
+
+let inintialState={
+count:10 
+}
+
+const reducer=(state=inintialState, action)=>{
+
+  switch(action.type){
+    case 'increment': return{
+      ...state,
+      count:state.count+1
+    }
+    case 'decrement': return{
+      ...state,
+      count:state.count-1
+    }
+    default:
+      return state;
+
+
+  }
+
+}
+
+
+
+const store=createStore(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+        <App />
+    </Provider>
+   
   </React.StrictMode>,
   document.getElementById('root')
 );
